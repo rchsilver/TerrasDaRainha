@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SectionTextBox } from "./styleTextBox";
+import { motion } from "framer-motion"; // Importe motion
+import { ChoiceBox } from "../choiceBox/choiceBox";
 
 const TextBox = () => {
   const [textoCompleto, setTextoCompleto] = useState<string[]>([]);
   const [textoDigitado, setTextoDigitado] = useState<string[]>([]);
   const [indiceParagrafo, setIndiceParagrafo] = useState<number>(0);
   const [indiceLetra, setIndiceLetra] = useState<number>(0);
+  const [textoCompletoDigitado, setTextoCompletoDigitado] = useState<boolean>(false);
 
   useEffect(() => {
     setTextoCompleto([
@@ -34,18 +37,29 @@ const TextBox = () => {
         }
       } else {
         clearInterval(typingInterval);
+        setTextoCompletoDigitado(true); // Define como verdadeiro quando todo o texto foi digitado
+
       }
-    }, 28); // Intervalo de 50 milissegundos entre cada letra
+    }, 10); // Intervalo de 28 milissegundos entre cada letra
 
     return () => clearInterval(typingInterval);
   }, [indiceParagrafo, indiceLetra, textoCompleto]);
 
   return (
     <SectionTextBox className="textBox">
+      <motion.div
+        initial={{ opacity: 0 }} // Define a opacidade inicial como 0
+        animate={{ opacity: 1 }} // Anima para opacidade 1
+        transition={{ duration: 1.5 }} // Duração da transição em segundos
+      >
       <h2>Nikolai IronBlood</h2>
       {textoDigitado.map((paragrafo, index) => (
         <p key={index}>{paragrafo}</p>
       ))}
+      {textoCompletoDigitado && (
+          <ChoiceBox />
+        )}
+        </motion.div>
     </SectionTextBox>
   );
 };

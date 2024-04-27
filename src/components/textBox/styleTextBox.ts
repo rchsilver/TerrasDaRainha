@@ -15,6 +15,7 @@ h2 {
 p {
     padding: 5px;
 }
+
 `;
 
 export {SectionTextBox}
