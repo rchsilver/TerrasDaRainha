@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { SectionTextBox } from "./styleTextBox";
 import { motion } from "framer-motion"; // Importe motion
 import { ChoiceBox } from "../choiceBox/choiceBox";
